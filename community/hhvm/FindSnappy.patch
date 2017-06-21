@@ -1,0 +1,18 @@
+--- a/CMake/FindSnappy.cmake
++++ b/CMake/FindSnappy.cmake
+@@ -5,13 +5,14 @@
+ # SNAPPY_FOUND, If false, do not try to use Snappy
+ 
+ find_path(SNAPPY_INCLUDE_DIR snappy.h PATHS
++  /usr/include
+   /usr/local/include
+   /opt/local/include
+ )
+ 
+ #find_library can't seem to find a 64-bit binary if the 32-bit isn't there
+ set(SNAPPY_LIB_NAMES libsnappy snappy)
+-set(SNAPPY_LIB_PATHS /usr/local/lib /opt/local/lib /usr/lib64)
++set(SNAPPY_LIB_PATHS /usr/lib /usr/local/lib /opt/local/lib /usr/lib64)
+ find_library(SNAPPY_LIB NAMES ${SNAPPY_LIB_NAMES} PATHS ${SNAPPY_LIB_PATHS})
+ 
+ if (SNAPPY_LIB AND SNAPPY_INCLUDE_DIR)
