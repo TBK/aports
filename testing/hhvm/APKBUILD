@@ -1,0 +1,69 @@
+# Maintainer: TBK <alpine@jjtc.eu>
+# Contributor: TBK <alpine@jjtc.eu>
+pkgname=hhvm
+_pkgname=HHVM
+pkgver=3.21.0
+pkgrel=0
+pkgdesc="HHVM is an open-source virtual machine designed for executing programs written in Hack and PHP."
+url="https://hhvm.com"
+arch="all"
+license="PHP-3 BSD LGPL2 MIT Zend"
+subpackages="$pkgname-dev $pkgname-doc $pkgname-proxygen"
+depends=""
+makedepends="acl-dev attr-dev autoconf automake binutils binutils-dev binutils-gold bison boost-dev bzip2-dev cloog-dev
+cmake curl-dev expat-dev freetype-dev gawk gcc gd-dev gettext-dev git glog-dev gmp-dev gnu-libiconv-dev
+gperf icu-dev imagemagick-dev imap-dev inotify-tools inotify-tools-dev jemalloc-dev krb5-dev libcap-dev
+libdwarf-dev libelf-dev libevent-dev libgomp libldap libmcrypt-dev libmemcached-dev libpcre16 libpcre32
+libre2-dev libressl-dev libstdc++ libtbb-dev libtool libunwind-dev libxml2-dev libxslt-dev libzip-dev lz4-dev
+mariadb-dev memcached memcached-dev mpfr-dev ncurses-dev ocaml oniguruma-dev pkgconf postgresql-dev readline-dev
+snappy-dev sqlite-dev subversion watchman yaml-dev zlib-dev zstd-dev"
+source="https://github.com/facebook/hhvm/archive/$_pkgname-$pkgver.tar.gz
+  FindLibMagickWand.patch
+  FindSnappy.patch"
+builddir="$srcdir/$pkgname-$_pkgname-$pkgver"
+
+prepare() {
+  default_prepare
+
+  cd "$builddir"
+  rmdir third-party
+  git submodule add -f https://github.com/hhvm/hhvm-third-party.git third-party
+  git submodule update --init --recursive
+}
+
+build() {
+  cd "$builddir"
+
+  cmake CMakeLists.txt \
+		-DCMAKE_INSTALL_PREFIX=/usr \
+		-DCONFDIR=/etc/$pkgname \
+		-DRUNDIR=/run/$pkgname
+  make -j64 hhvm
+}
+
+check() {
+  cd "$builddir"
+  make check
+  ./hhvm/hhvm test/run test/quick
+}
+
+package() {
+  cd "$builddir"
+
+  make DESTDIR="$pkgdir" install
+}
+
+dev() {
+  default_dev
+}
+ 
+doc() { 
+  default_doc
+
+  cd "$builddir"
+
+  mkdir -p "$subpkgdir"/usr/share/doc/$pkgname
+  cp CODING_STANDARDS CREDITS EXTENSIONS INSTALL LICENSE NEWS \
+    README* UPGRADING* \
+    "$subpkgdir"/usr/share/doc/$pkgname/
+}

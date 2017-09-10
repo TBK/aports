@@ -1,0 +1,17 @@
+ TODO: 
+ - Third-Party to convert to Alpine packages:
+ -- DOUBLE_CONVERSION - https://github.com/google/double-conversion
+ -- FastLZ - https://github.com/ariya/FastLZ
+
+- Patch to fix:
+ -- FindSnappy.patch: Not building the snappy extension.
+
+- Contact watchman package maintainer and ask to include $pkgname-dev subpackage:
+-- https://git.alpinelinux.org/cgit/aports/tree/testing/watchman/APKBUILD - Not building the watchman extension.
+
+
+- Road block - need to fix webscalesqlclient (Facebook fork of MySQL 5.6 with special stuff) ssl.cmake error:
+     See also "/home/tbk0000/aports/testing/hhvm/src/hhvm-HHVM-3.21.0/third-party/webscalesqlclient/src/CMakeFiles/CMakeOutput.log".
+    See also "/home/tbk0000/aports/testing/hhvm/src/hhvm-HHVM-3.21.0/third-party/webscalesqlclient/src/CMakeFiles/CMakeError.log".
+    make[3]: *** [third-party/webscalesqlclient/CMakeFiles/webscalesqlclient.dir/build.make:106: third-party/webscalesqlclient/build/src/webscalesqlclient-stamp/webscalesqlclient-configure] Error 1
+    make[2]: *** [CMakeFiles/Makefile2:841: third-party/webscalesqlclient/CMakeFiles/webscalesqlclient.dir/all] Error 2
