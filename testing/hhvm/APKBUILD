@@ -14,21 +14,25 @@ makedepends="acl-dev attr-dev autoconf automake binutils binutils-dev binutils-g
 cmake curl-dev expat-dev freetype-dev gawk gcc gd-dev gettext-dev git glog-dev gmp-dev gnu-libiconv-dev
 gperf icu-dev imagemagick-dev imap-dev inotify-tools inotify-tools-dev jemalloc-dev krb5-dev libcap-dev
 libdwarf-dev libelf-dev libevent-dev libgomp libldap libmcrypt-dev libmemcached-dev libpcre16 libpcre32
-libre2-dev libressl-dev libstdc++ libtbb-dev libtool libunwind-dev libxml2-dev libxslt-dev libzip-dev lz4-dev
+libre2-dev libressl-dev libstdc++ libtbb-dev libtool libunwind-dev libxml2-dev libxslt-dev libzip-dev linux-headers lz4-dev
 mariadb-dev memcached memcached-dev mpfr-dev ncurses-dev ocaml oniguruma-dev pkgconf postgresql-dev readline-dev
 snappy-dev sqlite-dev subversion watchman yaml-dev zlib-dev zstd-dev"
 source="https://github.com/facebook/hhvm/archive/$_pkgname-$pkgver.tar.gz
   FindLibMagickWand.patch
-  FindSnappy.patch"
+  FindSnappy.patch
+  webscalesqlclient-CMakeLists.patch
+  webscalesqlclient-ssl.patch
+  "
 builddir="$srcdir/$pkgname-$_pkgname-$pkgver"
 
 prepare() {
-  default_prepare
-
   cd "$builddir"
+
   rmdir third-party
   git submodule add -f https://github.com/hhvm/hhvm-third-party.git third-party
   git submodule update --init --recursive
+
+  default_prepare
 }
 
 build() {

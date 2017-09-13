@@ -1,0 +1,12 @@
+--- ssl.cmake.org
++++ ssl.cmake
+@@ -123,8 +123,7 @@
+ 
+     IF(OPENSSL_INCLUDE_DIR AND
+        OPENSSL_LIBRARY   AND
+-       CRYPTO_LIBRARY      AND
+-       OPENSSL_MAJOR_VERSION STREQUAL "1"
++       CRYPTO_LIBRARY
+       )
+       SET(OPENSSL_FOUND TRUE)
+     ELSE()
