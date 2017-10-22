@@ -1,24 +1,26 @@
-# Contributor: TBK <tbk@jjtc.eu>
+# Maintainer: TBK <alpine@jjtc.eu>
+# Contributor: TBK <alpine@jjtc.eu>
 pkgname=py3-zeyple
-pkgver=1.2.0
+_pkgname=zeyple
+pkgver=1.2.1
 pkgrel=0
 pkgdesc="Zeyple automatically encrypts outgoing emails with GPG"
 url="https://infertux.com/labs/zeyple/"
 arch="noarch"
-license="GPL2"
-depends="python3 postfix gnupg pygpgme"
+license="AGPL3"
+depends="python3 postfix gnupg py3-pygpgme"
 makedepends="python3-dev py-setuptools"
 subpackages=""
-source="zeyple-${pkgver}.tar.gz::https://github.com/infertux/zeyple/archive/$pkgver.tar.gz
+source="$_pkgname-$pkgver.tar.gz::https://github.com/infertux/$_pkgname/archive/$pkgver.tar.gz
         setup.py"
-builddir="$srcdir"/zeyple-$pkgver
+builddir="$srcdir"/$_pkgname-$pkgver
 
 prepare() {
 	cp "$srcdir"/setup.py "$builddir"/
 }
 
 build() {
-	cd "$builddir"/zeyple
+	cd "$builddir"/$_pkgname
 	python3 setup.py build
 }
 
@@ -28,7 +30,7 @@ check() {
 }
 
 package() {
-	cd "$builddir"/zeyple
+	cd "$builddir"/$_pkgname
 	python3 setup.py install --prefix=/usr --root="$pkgdir"
 }
 

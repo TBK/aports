@@ -17,7 +17,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(name = "zeyple",
-      version = "1.2.0",
+      version = "1.2.1",
       author = "Cédric Félizard",
       author_email = "cedric@felizard.fr",
       url = "https://github.com/infertux/zeyple",
