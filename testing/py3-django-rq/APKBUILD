@@ -1,0 +1,25 @@
+# Contributor: TBK <alpine@jjtc.eu>
+# Maintainer:
+pkgname=py3-django-rq
+_pkgname=${pkgname#py3-}
+pkgver=2.0
+pkgrel=0
+pkgdesc="Django integration with RQ, a Redis based Python queuing library."
+url="https://github.com/rq/django-rq/"
+arch="noarch"
+license="MIT"
+options="!check" # Requires running RQ (redis server)
+depends="py3-django py3-rq"
+makedepends="py3-setuptools"
+source="$pkgname-$pkgver.tar.gz::https://github.com/rq/django-rq/archive/v$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	python3 setup.py --quiet build
+}
+
+package() {
+	python3 setup.py --quiet install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="de40ace0442e66f379a79c5964a6ab0f59b91c8bbe4cb175da1e3cec15fca873982ae6c0b20e2deecdff2f167aa330f2c524f8399ae4d84fe8a1f33ecc1aab03  py3-django-rq-2.0.tar.gz"
