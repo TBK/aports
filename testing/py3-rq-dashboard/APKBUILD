@@ -1,0 +1,25 @@
+# Contributor: TBK <alpine@jjtc.eu>
+# Maintainer:
+pkgname=py3-rq-dashboard
+_pkgname=${pkgname#py3-}
+pkgver=0.4.0
+pkgrel=0
+pkgdesc="Flask-based web front-end for monitoring RQ queues."
+url="https://github.com/eoranged/rq-dashboard/"
+arch="noarch"
+license="BSD-2-Clause"
+options="!check" # Requires running RQ (redis server)
+depends="py3-arrow py3-click py3-flask py3-rq"
+makedepends="py3-setuptools"
+source="$pkgname-$pkgver.tar.gz::https://github.com/eoranged/rq-dashboard/archive/$pkgver.tar.gz"
+builddir="$srcdir"/$_pkgname-$pkgver
+
+build() {
+	python3 setup.py --quiet build
+}
+
+package() {
+	python3 setup.py --quiet install --prefix=/usr --root="$pkgdir"
+}
+
+sha512sums="a91c698833a6726db3b176580706c8b73e6d3057c1e390af6f3bef90bb0bdbb39d20bf8e7fae439befb3343b2c2a2000057e9be49ef2aa738cfedb1db0315e1b  py3-rq-dashboard-0.4.0.tar.gz"
