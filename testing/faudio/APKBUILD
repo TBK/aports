@@ -1,7 +1,7 @@
 # Contributor: TBK <alpine@jjtc.eu>
 # Maintainer: TBK <alpine@jjtc.eu>
 pkgname=faudio
-pkgver=20.11
+pkgver=20.12
 pkgrel=0
 pkgdesc="Accuracy-focused XAudio reimplementation for open platforms"
 url="https://fna-xna.github.io/"
